@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="description" content="Fenichel Lab: an interactive exact-solution atlas for geometric singular perturbation theory." />
+    <title>Fenichel Lab · Exact Solution Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Fenichel Lab home">
+          <span class="brand-mark">F</span>
+          <span>Fenichel <em>Lab</em></span>
+        </a>
+        <nav class="chapter-nav" aria-label="Chapters">
+          <a href="#atlas">01&nbsp; Critical manifold</a>
+          <a class="active" href="#atlas">02&nbsp; Fenichel persistence</a>
+          <a href="#exchange">03&nbsp; Exchange lemma</a>
+        </nav>
+        <div class="top-status"><span class="status-dot"></span><span id="systemStatus">SYSTEM NORMAL</span><span class="mono">/ ε = <span id="topEpsilon">0.08</span></span></div>
+        <button class="language-button" type="button" aria-label="Switch language">EN <span>/ 中</span></button>
+      </header>
+
+      <main id="top" class="page-content">
+        <section class="intro-row">
+          <div>
+            <p class="eyebrow">GEOMETRIC SINGULAR PERTURBATION THEORY · INTERACTIVE STUDY</p>
+            <h1>See the <span>fast</span> transient<br />become the slow flow.</h1>
+            <p class="intro-copy">A directly solvable two-dimensional system makes Fenichel’s three theorems and the exchange mechanism visible, one parameter at a time.</p>
+          </div>
+          <div class="intro-equation glass-panel">
+            <span class="eyebrow">DEFAULT MODEL / 可求解模型</span>
+            <div class="equation large">ẋ = −x</div>
+            <div class="equation large">ε ẏ = x − y</div>
+            <div class="intro-model-meta"><span>ε &gt; 0</span><span class="divider"></span><span>λ<sub>fast</sub> = −1/ε</span></div>
+          </div>
+        </section>
+
+        <section class="workspace-grid" aria-label="Exact solution workspace">
+          <div class="phase-space-card glass-panel">
+            <div class="card-heading">
+              <div><p class="eyebrow">PHASE SPACE / EXACT ORBIT</p><p class="small-caption" id="diagramMode">Theorem I · persistence layer</p></div>
+              <div class="diagram-actions">
+                <button id="zoomButton" class="icon-button" type="button" aria-label="Zoom diagram">＋</button>
+                <button id="resetButton" class="icon-button" type="button" aria-label="Reset parameters">↻</button>
+                <button id="pauseButton" class="icon-button" type="button" aria-label="Pause simulation">Ⅱ</button>
+              </div>
+            </div>
+            <div class="diagram-wrap" id="diagramWrap">
+              <svg id="phaseDiagram" viewBox="0 0 780 500" role="img" aria-labelledby="diagramTitle diagramDescription">
+                <title id="diagramTitle">Exact orbit in a slow-fast phase space</title>
+                <desc id="diagramDescription">Critical and perturbed manifolds with a moving trajectory and a fast fiber.</desc>
+                <defs>
+                  <filter id="softGlow"><feGaussianBlur stdDeviation="9" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                  <marker id="arrowGold" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#c9b8a0" /></marker>
+                  <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#86a98a" /></marker>
+                </defs>
+                <g class="grid-lines">
+                  <path d="M80 80H730 M80 160H730 M80 240H730 M80 320H730 M80 400H730" />
+                  <path d="M160 35V440 M260 35V440 M360 35V440 M460 35V440 M560 35V440 M660 35V440" />
+                </g>
+                <g class="axes"><path d="M80 440H730" marker-end="url(#arrowGold)"/><path d="M80 440V35" marker-end="url(#arrowGold)"/><text x="715" y="463">x (slow)</text><text x="44" y="44">y (fast)</text></g>
+                <g id="fiberLayer" class="fiber-layer">
+                  <path d="M180 374V244" /><path d="M275 341V213" /><path d="M370 305V180" /><path d="M465 267V145" /><path d="M560 228V112" /><path d="M650 190V82" />
+                </g>
+                <path id="criticalPath" class="critical-path" d="M100 372 C250 345 365 293 485 226 S650 130 708 86" />
+                <path id="perturbedPath" class="perturbed-path" d="M100 391 C250 364 365 312 485 245 S650 149 708 105" />
+                <path id="reducedPath" class="reduced-path" d="M100 372 C250 345 365 293 485 226 S650 130 708 86" />
+                <path id="orbitPath" class="orbit-path" d="M130 126 C162 180 170 315 282 349 C410 336 520 251 675 132" />
+                <path id="fastFiber" class="fast-fiber" d="M168 132 L168 305" marker-end="url(#arrowGreen)" />
+                <circle id="orbitMarker" class="orbit-marker" cx="168" cy="132" r="7" />
+                <circle id="slowMarker" class="slow-marker" cx="0" cy="0" r="5" />
+                <g id="sectionIn" class="section section-in"><path d="M125 108V170"/><text x="101" y="95">Σ<sub>in</sub></text></g>
+                <g id="sectionOut" class="section section-out"><path d="M655 118V180"/><text x="661" y="104">Σ<sub>out</sub></text></g>
+                <g class="diagram-labels"><text x="115" y="355">S₀ : y = x</text><text x="520" y="195">Sε : y = x/(1−ε)</text><text id="fiberLabel" x="190" y="198">fast fiber</text></g>
+              </svg>
+              <div class="diagram-badge"><span class="status-dot green"></span><span>normally hyperbolic</span></div>
+              <div class="diagram-legend"><span><i class="legend-line s0"></i>S₀</span><span><i class="legend-line se"></i>Sε</span><span><i class="legend-line orbit"></i>exact orbit</span></div>
+              <div class="coordinate-readout"><span>x(t) <strong id="diagramX">0.800</strong></span><span>y(t) <strong id="diagramY">1.200</strong></span><span>t <strong id="diagramT">0.00</strong></span></div>
+            </div>
+            <div class="diagram-footer"><span>Drag through time with the scrubber</span><span class="mono">view: <strong id="viewScale">1.0×</strong></span></div>
+          </div>
+
+          <aside class="control-rail glass-panel" aria-label="Simulation controls">
+            <div class="card-heading"><div><p class="eyebrow">GLOBAL TUNING / 参数</p><p class="small-caption">Everything below is live</p></div><span class="settings-icon">⌘</span></div>
+            <div class="control-group">
+              <div class="control-label"><label for="epsilon">small parameter ε</label><output id="epsilonValue">0.08</output></div>
+              <input id="epsilon" type="range" min="0.02" max="0.30" step="0.01" value="0.08" />
+              <div class="range-hints"><span>0.02 · singular</span><span>0.30</span></div>
+            </div>
+            <div class="control-group">
+              <div class="control-label"><label for="x0">slow initial condition x₀</label><output id="x0Value">0.80</output></div>
+              <input id="x0" type="range" min="0.2" max="1.4" step="0.05" value="0.8" />
+              <div class="range-hints"><span>0.20</span><span>1.40</span></div>
+            </div>
+            <div class="control-group">
+              <div class="control-label"><label for="y0">fast initial condition y₀</label><output id="y0Value">1.20</output></div>
+              <input id="y0" type="range" min="-0.4" max="1.8" step="0.05" value="1.2" />
+              <div class="range-hints"><span>−0.40</span><span>1.80</span></div>
+            </div>
+            <div class="control-group time-group">
+              <div class="control-label"><label for="time">time t</label><output id="timeValue">0.00</output></div>
+              <input id="time" type="range" min="0" max="4" step="0.01" value="0" />
+              <div class="range-hints"><span>entry</span><span>t = 4.00</span></div>
+            </div>
+            <button id="playButton" class="primary-button" type="button"><span class="play-glyph">▶</span><span id="playLabel">Play exact orbit</span></button>
+            <div class="rail-status">
+              <div><span>critical manifold S₀</span><strong class="muted-status">invariant</strong></div>
+              <div><span>Fenichel manifold Sε</span><strong class="success-status">persisted</strong></div>
+              <div><span>fast eigenvalue</span><strong class="gold-status mono" id="fastEigenvalue">−12.50</strong></div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="solve-strip glass-panel" aria-labelledby="solveTitle">
+          <div class="section-heading"><div><p class="eyebrow">GUIDED DERIVATION / 逐步求解</p><h2 id="solveTitle">Solve this system</h2></div><span class="step-count mono" id="stepCount">01 / 04</span></div>
+          <div class="stepper" role="tablist" aria-label="Derivation steps">
+            <button class="step-button active" data-step="0" role="tab"><span>01</span><b>Write system</b><small>start here</small></button>
+            <button class="step-button" data-step="1" role="tab"><span>02</span><b>Set ε = 0</b><small>find S₀</small></button>
+            <button class="step-button" data-step="2" role="tab"><span>03</span><b>Solve transient</b><small>fast layer</small></button>
+            <button class="step-button" data-step="3" role="tab"><span>04</span><b>Compare flows</b><small>track Sε</small></button>
+          </div>
+          <div class="derivation-content"><div><p class="eyebrow" id="derivationKicker">STEP 01 / MODEL</p><h3 id="derivationTitle">A system with two clocks</h3><p id="derivationText">The x-variable evolves on the O(1) slow clock. The y-variable relaxes on the O(ε) fast clock, so its transient is visible before the orbit settles.</p></div><div class="formula-box"><span class="eyebrow">LIVE FORMULA</span><div class="equation" id="derivationFormula">ẋ = −x &nbsp;&nbsp;&nbsp; ε ẏ = x − y</div></div></div>
+        </section>
+
+        <section id="atlas" class="atlas-section" aria-labelledby="atlasTitle">
+          <div class="section-heading"><div><p class="eyebrow">THEOREM ATLAS / 三个定理</p><h2 id="atlasTitle">Three things Fenichel keeps.</h2></div><p class="section-note">Select a theorem to spotlight its geometry and exact-solution row.</p></div>
+          <div class="theorem-grid">
+            <article class="theorem-card active" data-theorem="1" tabindex="0"><div class="theorem-top"><span class="theorem-number">I</span><span class="theorem-state">ACTIVE</span></div><h3>Persistence</h3><p>The normally hyperbolic critical manifold S₀ persists as a nearby invariant manifold Sε for sufficiently small ε.</p><div class="formula-box compact"><span class="equation">S₀ : y = x</span><span class="equation accent">Sε : y = x/(1−ε)</span></div><div class="chips"><span>compact</span><span>hyperbolic</span><span>C<sup>k</sup></span></div><button class="outline-button" data-focus="1" type="button">Explore in diagram <span>↗</span></button></article>
+            <article class="theorem-card" data-theorem="2" tabindex="0"><div class="theorem-top"><span class="theorem-number">II</span><span class="theorem-state">FIBERS</span></div><h3>Foliation</h3><p>Stable and unstable fibers persist and organize a neighborhood into invariant fast leaves that contract or expand.</p><div class="formula-box compact"><span class="equation">λ<sub>fast</sub> = −1/ε</span><span class="equation accent">δy(t) = δy₀e<sup>−t/ε</sup></span></div><div class="chips"><span>stable fiber</span><span>leaf</span><span>invariant</span></div><button class="outline-button" data-focus="2" type="button">Explore in diagram <span>↗</span></button></article>
+            <article class="theorem-card" data-theorem="3" tabindex="0"><div class="theorem-top"><span class="theorem-number">III</span><span class="theorem-state">TRACKING</span></div><h3>Reduced flow</h3><p>The flow induced on Sε shadows the reduced slow flow, while nearby trajectories track it after the fast transient.</p><div class="formula-box compact"><span class="equation">x(t) = x₀e<sup>−t</sup></span><span class="equation accent">|y − hε(x)| = O(e<sup>−t/ε</sup>)</span></div><div class="chips"><span>reduced flow</span><span>shadowing</span><span>tracking</span></div><button class="outline-button" data-focus="3" type="button">Explore in diagram <span>↗</span></button></article>
+          </div>
+        </section>
+
+        <section id="exchange" class="exchange-section glass-panel" aria-labelledby="exchangeTitle">
+          <div class="section-heading"><div><p class="eyebrow">EXCHANGE LEMMA / 交换引理</p><h2 id="exchangeTitle">Watch a section exchange.</h2></div><span class="toy-badge">TOY DEMONSTRATION · NOT A PROOF</span></div>
+          <div class="exchange-layout">
+            <div class="phase-selector" role="tablist" aria-label="Exchange phases">
+              <button class="phase-button active" data-phase="A" role="tab"><span>A</span><b>Entry</b><small>Σ<sub>in</sub> enters</small></button>
+              <button class="phase-button" data-phase="B" role="tab"><span>B</span><b>Contraction</b><small>fast fibers align</small></button>
+              <button class="phase-button" data-phase="C" role="tab"><span>C</span><b>Passage</b><small>slow drift</small></button>
+              <button class="phase-button" data-phase="D" role="tab"><span>D</span><b>Exit</b><small>Σ<sub>out</sub> leaves</small></button>
+            </div>
+            <div class="exchange-readout"><div class="map-line"><span>Σ<sub>in</sub></span><i></i><strong>Φ<sup>Δt</sup></strong><i></i><span>Σ<sub>out</sub></span></div><div class="exchange-formula"><span class="eyebrow">SECTION MAP / 横截面映射</span><div class="equation accent">δ<sub>out</sub> ≈ exp(−Δt/ε) · δ<sub>in</sub></div><div class="contraction-value"><span>contraction factor</span><strong id="contractionValue">0.00</strong></div></div><div class="exchange-copy"><p class="eyebrow" id="phaseKicker">PHASE A / ENTRY</p><h3 id="phaseTitle">Enter the singular neighborhood.</h3><p id="phaseText">A transverse section Σ<sub>in</sub> arrives with a visible spread in the fast direction. The next phase measures how the fast fibers exchange that spread for alignment with Sε.</p></div></div>
+          </div>
+          <div class="exchange-disclaimer"><span class="status-dot"></span><span><strong>What this demonstrates:</strong> contraction of a transverse section before slow passage. <strong>What it omits:</strong> global hypotheses, charts, and boundary-layer estimates from a full exchange-lemma proof.</span></div>
+        </section>
+      </main>
+
+      <footer class="footer"><span>GEOMETRIC SINGULAR PERTURBATION THEORY</span><span>Fenichel Lab / v0.3</span><span class="mono">space play · r reset</span><a href="#top">back to top ↑</a></footer>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
